@@ -2,12 +2,14 @@
 extends PlayerState
 
 
+var old_gravity
+
+
 func enter(msg := {}) -> void:
 	if msg.has("do_jump"):
 		player.velocity.y = player.max_jump_velocity 
-	elif msg.has("falling"):
-		player.coyote_timer.start()
-		
+	
+
 
 func physics_update(delta: float) -> void:
 	var input_direction_x: float = (
@@ -31,4 +33,4 @@ func physics_update(delta: float) -> void:
 			
 		
 func _on_CoyoteTimer_timeout() -> void:
-	pass # Replace with function body.
+	player.gravity = old_gravity

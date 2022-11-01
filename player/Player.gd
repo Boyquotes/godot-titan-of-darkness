@@ -33,7 +33,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _process(delta: float) -> void:
-	
+#	print(str($StateMachine.state.name))
+	print(velocity.y)
 	$Control/ColorRect/VBoxContainer/State.text = str($StateMachine.state.name)
 	$Control/ColorRect/VBoxContainer/Velocity.text = str(velocity.x)
 	
