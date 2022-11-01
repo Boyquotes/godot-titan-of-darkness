@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/testing levels/test_jump_level.png" type="Texture" id=2]
-[ext_resource path="res://decorations/halloween/pumpkin/pumpkin.png" type="Texture" id=3]
 
 [node name="Main" type="Node2D"]
 
@@ -22,7 +21,3 @@ polygon = PoolVector2Array( 128, 1280, 1280, 1280, 1280, 1152, 1408, 1152, 1408,
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 432, 904 )
-
-[node name="Pumpkin" type="Sprite" parent="."]
-position = Vector2( 1464, 496 )
-texture = ExtResource( 3 )
