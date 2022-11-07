@@ -45,7 +45,7 @@ _global_script_class_icons={
 [application]
 
 config/name="godot-titan-of-darkness-initial"
-run/main_scene="res://player/Main.tscn"
+run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
 [gui]

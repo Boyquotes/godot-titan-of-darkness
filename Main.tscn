@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://levels/testing levels/7faw84wfea849.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1216, 32 )
+
+[node name="Main" type="Node2D"]
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Level"]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Level/StaticBody2D"]
+texture = ExtResource( 2 )
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Level/StaticBody2D"]
+polygon = PoolVector2Array( 0, 640, 640, 640, 640, 896, 1024, 896, 1024, 640, 1152, 640, 1152, 896, 1664, 896, 1664, 640, 2048, 640, 2048, 896, 2688, 896, 2688, 640, 2816, 640, 2816, 896, 3584, 896, 3584, 640, 3712, 640, 3712, 896, 4608, 896, 4608, 640, 5760, 640, 5760, 896, 5760, 1152, 4608, 1152, 3712, 1152, 3584, 1152, 2816, 1152, 2688, 1152, 2048, 1152, 1664, 1152, 1152, 1152, 1024, 1152, 640, 1152, 0, 1152, 0, 896 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Level"]
+visible = false
+position = Vector2( 1216, 528 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D2"]
+position = Vector2( 0, 32 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 256, 640 )

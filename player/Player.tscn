@@ -1,16 +1,48 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://player/sprites/wizard_scaled.png" type="Texture" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://player/Player.gd" type="Script" id=2]
 [ext_resource path="res://utilities/StateMachine/StateMachine.gd" type="Script" id=3]
 [ext_resource path="res://player/states/Air.gd" type="Script" id=4]
 [ext_resource path="res://player/states/Idle.gd" type="Script" id=5]
 [ext_resource path="res://player/states/Run.gd" type="Script" id=6]
-[ext_resource path="res://player/CoyoteJump.gd" type="Script" id=7]
+[ext_resource path="res://player/sprites/dust/dust_texture.png" type="Texture" id=7]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 9.0
-height = 86.0
+[sub_resource type="CanvasItemMaterial" id=4]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id=8]
+offsets = PoolRealArray( 0, 0.687117, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 8 )
+
+[sub_resource type="Curve" id=6]
+_data = [ Vector2( 0, 0.317308 ), 0.0, 0.416209, 0, 0, Vector2( 0.244444, 0.644231 ), 0.0, 0.0, 0, 0, Vector2( 0.75, 0.509615 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -0.080501, -0.080501, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=7]
+curve = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+emission_shape = 1
+emission_sphere_radius = 12.0
+flag_disable_z = true
+angular_velocity = 90.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_random = 1.0
+scale_curve = SubResource( 7 )
+color_ramp = SubResource( 9 )
+anim_offset = 1.0
+anim_offset_random = 1.0
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 64, 64 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 39, 181.5 )
@@ -21,21 +53,28 @@ script = ExtResource( 2 )
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 0, -60 )
 current = true
-limit_left = 0
-limit_top = 0
-limit_bottom = 1350
 limit_smoothed = true
 smoothing_enabled = true
 
 [node name="Skin" type="Node2D" parent="."]
 
+[node name="Particles2D" type="Particles2D" parent="Skin"]
+material = SubResource( 4 )
+position = Vector2( -16, 0 )
+emitting = false
+amount = 32
+local_coords = false
+process_material = SubResource( 5 )
+texture = ExtResource( 7 )
+
 [node name="Body" type="Sprite" parent="Skin"]
-position = Vector2( 0, -60 )
+position = Vector2( 0, -64 )
+scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -52 )
-shape = SubResource( 1 )
+position = Vector2( 0, -64 )
+shape = SubResource( 3 )
 
 [node name="OwnHurtbox" type="Area2D" parent="."]
 visible = false
@@ -45,26 +84,29 @@ self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 0, -194.5 )
 shape = SubResource( 2 )
 
-[node name="CoyoteTimer" type="Timer" parent="."]
-one_shot = true
-
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 3 )
-initial_state = NodePath("Idle")
+initial_state = NodePath("Air")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource( 5 )
 
-[node name="Run" type="Node" parent="StateMachine"]
-script = ExtResource( 6 )
-
 [node name="Air" type="Node" parent="StateMachine"]
 script = ExtResource( 4 )
 
-[node name="CoyoteJump" type="Node" parent="StateMachine"]
-script = ExtResource( 7 )
+[node name="CoyoteTimer" type="Timer" parent="StateMachine/Air"]
+wait_time = 0.2
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="StateMachine/Air"]
+wait_time = 0.1
+one_shot = true
+
+[node name="Run" type="Node" parent="StateMachine"]
+script = ExtResource( 6 )
 
 [node name="Control" type="Control" parent="."]
+visible = false
 margin_left = -91.0
 margin_top = -232.0
 margin_right = 95.0
@@ -84,7 +126,7 @@ margin_right = -5.0
 margin_bottom = -5.0
 custom_constants/separation = 5
 
-[node name="Velocity" type="Label" parent="Control/ColorRect/VBoxContainer"]
+[node name="State" type="Label" parent="Control/ColorRect/VBoxContainer"]
 margin_right = 176.0
 margin_bottom = 14.0
 size_flags_vertical = 1
@@ -93,7 +135,7 @@ text = "Test"
 align = 1
 valign = 1
 
-[node name="State" type="Label" parent="Control/ColorRect/VBoxContainer"]
+[node name="Velocity" type="Label" parent="Control/ColorRect/VBoxContainer"]
 margin_top = 19.0
 margin_right = 176.0
 margin_bottom = 33.0
@@ -103,4 +145,32 @@ text = "Test"
 align = 1
 valign = 1
 
-[connection signal="timeout" from="CoyoteTimer" to="StateMachine/CoyoteJump" method="_on_CoyoteTimer_timeout"]
+[node name="Gravity" type="Label" parent="Control/ColorRect/VBoxContainer"]
+margin_top = 38.0
+margin_right = 176.0
+margin_bottom = 52.0
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.0
+text = "Test"
+align = 1
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/ColorRect/VBoxContainer"]
+margin_top = 57.0
+margin_right = 176.0
+margin_bottom = 84.0
+size_flags_vertical = 3
+
+[node name="Coyote" type="ColorRect" parent="Control/ColorRect/VBoxContainer/HBoxContainer"]
+margin_right = 86.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+
+[node name="JumpBuffer" type="ColorRect" parent="Control/ColorRect/VBoxContainer/HBoxContainer"]
+margin_left = 90.0
+margin_right = 176.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+
+[connection signal="timeout" from="StateMachine/Air/CoyoteTimer" to="StateMachine/Air" method="_on_CoyoteTimer_timeout"]
+[connection signal="timeout" from="StateMachine/Air/JumpBufferTimer" to="StateMachine/Air" method="_on_JumpBufferTimer_timeout"]
