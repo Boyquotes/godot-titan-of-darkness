@@ -1,38 +1,57 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://levels/testing levels/7faw84wfea849.png" type="Texture" id=2]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 1216, 32 )
+[ext_resource path="res://mobs/Snails/Basic/Snail.tscn" type="PackedScene" id=2]
+[ext_resource path="res://levels/testing levels/background2.png" type="Texture" id=3]
 
 [node name="Main" type="Node2D"]
 
 [node name="Level" type="Node2D" parent="."]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Level"]
+[node name="Second" type="Node2D" parent="Level"]
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Sprite" type="Sprite" parent="Level/StaticBody2D"]
-texture = ExtResource( 2 )
+[node name="Sprite" type="Sprite" parent="Level/Second"]
+texture = ExtResource( 3 )
 centered = false
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Level/StaticBody2D"]
-polygon = PoolVector2Array( 0, 640, 640, 640, 640, 896, 1024, 896, 1024, 640, 1152, 640, 1152, 896, 1664, 896, 1664, 640, 2048, 640, 2048, 896, 2688, 896, 2688, 640, 2816, 640, 2816, 896, 3584, 896, 3584, 640, 3712, 640, 3712, 896, 4608, 896, 4608, 640, 5760, 640, 5760, 896, 5760, 1152, 4608, 1152, 3712, 1152, 3584, 1152, 2816, 1152, 2688, 1152, 2048, 1152, 1664, 1152, 1152, 1152, 1024, 1152, 640, 1152, 0, 1152, 0, 896 )
+[node name="StaticBody2D" type="StaticBody2D" parent="Level/Second"]
+collision_layer = 4
+collision_mask = 0
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="Level"]
-visible = false
-position = Vector2( 1216, 528 )
-__meta__ = {
-"_edit_group_": true
-}
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Level/Second/StaticBody2D"]
+position = Vector2( -1920, 0 )
+polygon = PoolVector2Array( 1920, 1168, 2224, 1168, 2224, 1424, 2624, 1424, 2624, 1168, 3008, 1168, 3008, 1424, 3392, 1424, 3392, 1168, 4016, 1168, 4016, 1296, 4160, 1296, 4160, 1424, 4544, 1424, 4544, 1616, 1920, 1616 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StaticBody2D2"]
-position = Vector2( 0, 32 )
-shape = SubResource( 1 )
-disabled = true
+[node name="StaticBody2D2" type="StaticBody2D" parent="Level/Second"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Level/Second/StaticBody2D2"]
+position = Vector2( -1920, 0 )
+polygon = PoolVector2Array( 5184, 1296, 5184, 1168, 5936, 1168, 5936, 1616, 4544, 1616, 4544, 1600, 5504, 1600, 5440, 1392, 5424, 1312, 5312, 1312, 5248, 1360 )
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Level/Second"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Level/Second/StaticBody2D3"]
+position = Vector2( -1920, 0 )
+polygon = PoolVector2Array( 4288, 992, 4288, 1040, 4544, 1040, 4544, 992 )
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Level/Second"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Level/Second/StaticBody2D4"]
+position = Vector2( -1920, 0 )
+polygon = PoolVector2Array( 1920, 416, 5936, 400, 5936, 0, 1920, 0 )
+
+[node name="Snail" parent="Level" instance=ExtResource( 2 )]
+position = Vector2( 2032, 1168 )
+health = 1
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 256, 640 )
+position = Vector2( 1776, 1088 )
