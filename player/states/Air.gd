@@ -12,6 +12,7 @@ var jump_buffer := false
 func enter(msg := {}) -> void:
 	if msg.has("do_jump"):
 		player.velocity.y = player.max_jump_velocity
+		player.sfx_player.play_jump_sfx()
 	elif msg.has("was_on_floor"):
 		coyote_jump = true
 		coyote_timer.start()
@@ -27,6 +28,9 @@ func handle_input(event: InputEvent) -> void:
 			
 		
 func physics_update(delta: float) -> void:
+	if player.taking_damage:
+		state_machine.transition_to("Knockback")
+	
 	var input_direction_x: float = (
 		Input.get_action_strength("move_right") -
 		Input.get_action_strength("move_left")

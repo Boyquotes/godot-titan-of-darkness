@@ -7,6 +7,12 @@ func enter(msg := {}) -> void:
 		player.velocity.y = player.max_jump_velocity
 	else:
 		player.velocity = Vector2.ZERO
+		player.sfx_player.play_land_sfx()
+	
+	
+func handle_input(event: InputEvent) -> void:
+	if event.is_action_pressed("attack"):
+		player.anim_state.travel("attack")
 	
 	
 func update(delta: float) -> void:
@@ -21,7 +27,9 @@ func update(delta: float) -> void:
 
 
 func physics_update(delta: float) -> void:
-
+	if player.taking_damage:
+		state_machine.transition_to("Knockback")
+	
 	player.velocity.x = player.speed * 0
 	player.velocity.y += player.gravity * delta
 	player.velocity = player.move_and_slide(player.velocity, Vector2.UP)

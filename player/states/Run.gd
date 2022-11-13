@@ -8,10 +8,18 @@ func enter(msg := {}) -> void:
 		player.velocity.y = player.max_jump_velocity
 
 
+func handle_input(event: InputEvent) -> void:
+	if event.is_action_pressed("attack"):
+		player.anim_state.travel("attack")
+
+
 func physics_update(delta: float) -> void:
 	if not player.is_on_floor():
 		state_machine.transition_to("Air", {was_on_floor = true})
 		return
+		
+	if player.taking_damage:
+		state_machine.transition_to("Knockback")
 
 		
 	var input_direction_x: float = (

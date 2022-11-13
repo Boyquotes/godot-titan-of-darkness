@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://player/particles/blood.tres" type="Material" id=1]
+[ext_resource path="res://player/particles/BloodParticles2D.gd" type="Script" id=2]
+
+[node name="BloodParticles2D" type="Particles2D"]
+position = Vector2( 0, -62 )
+emitting = false
+amount = 32
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="DeleteTimer" type="Timer" parent="."]
