@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/wizard_scaled.png-6987600e50046a8f8186add19ff86b86.stex"
+path="res://.import/Attack1.png-2d329d2554f3460171abafd4fc688e0d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/sprites/wizard_scaled.png"
-dest_files=[ "res://.import/wizard_scaled.png-6987600e50046a8f8186add19ff86b86.stex" ]
+source_file="res://player/sprites/Attack1.png"
+dest_files=[ "res://.import/Attack1.png-2d329d2554f3460171abafd4fc688e0d.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
