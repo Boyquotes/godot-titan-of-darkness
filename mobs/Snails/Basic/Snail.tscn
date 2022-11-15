@@ -68,20 +68,21 @@ position = Vector2( -22, 0 )
 enabled = true
 collision_mask = 4
 
-[node name="Hit" type="Area2D" parent="." index="6"]
+[node name="HitBox" type="Area2D" parent="." index="6"]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource( 4 )
+damage = 1
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hit" index="0"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitBox" index="0"]
 polygon = PoolVector2Array( 55, -35, 55, -67, 20, -68, -5, -82, -46, -75, -55, -59, -56, -37, -55, -1, 19, 0, 40, -28 )
 
-[node name="Hurt" type="Area2D" parent="." index="7"]
+[node name="HurtBox" type="Area2D" parent="." index="7"]
 collision_layer = 0
 monitorable = false
 script = ExtResource( 5 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurt" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
 position = Vector2( 0, -40 )
 rotation = 1.5708
 shape = SubResource( 5 )

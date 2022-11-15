@@ -4,9 +4,8 @@ extends PlayerState
 
 func enter(_msg := {}) -> void:
 	player.taking_damage = false
-	player.can_move = false
 	player.velocity.y = player.knockback_height
-	player.hurt.monitoring = false
+	player.hurt_box.monitoring = false
 	player.anim_state.travel("take_hit")
 			
 		
@@ -28,7 +27,5 @@ func physics_update(delta: float) -> void:
 
 
 func exit() -> void:
-	player.can_move = true
-	player.anim_player.play("RESET")
-	player.hurt.monitoring = true
-	player.anim_state.travel("idle")
+	player.hurt_box.monitoring = true
+	

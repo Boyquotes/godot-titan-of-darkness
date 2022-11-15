@@ -8,11 +8,13 @@ func enter(msg := {}) -> void:
 	else:
 		player.velocity = Vector2.ZERO
 		player.sfx_player.play_land_sfx()
+		
+	player.anim_state.travel("idle")
 	
 	
 func handle_input(event: InputEvent) -> void:
 	if event.is_action_pressed("attack"):
-		player.anim_state.travel("attack")
+		state_machine.transition_to("Attack")
 	
 	
 func update(delta: float) -> void:
@@ -29,6 +31,8 @@ func update(delta: float) -> void:
 func physics_update(delta: float) -> void:
 	if player.taking_damage:
 		state_machine.transition_to("Knockback")
+	elif player.health <= 0:
+		state_machine.transition_to("Death")
 	
 	player.velocity.x = player.speed * 0
 	player.velocity.y += player.gravity * delta

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://mobs/Snails/Basic/Snail.tscn" type="PackedScene" id=2]
-[ext_resource path="res://levels/testing levels/background2.png" type="Texture" id=3]
+[ext_resource path="res://levels/background2.png" type="Texture" id=3]
 
 [node name="Main" type="Node2D"]
 
@@ -50,7 +50,11 @@ position = Vector2( -1920, 0 )
 polygon = PoolVector2Array( 1920, 416, 5936, 400, 5936, 0, 1920, 0 )
 
 [node name="Snail" parent="Level" instance=ExtResource( 2 )]
-position = Vector2( 2032, 1168 )
+position = Vector2( 899, 1169 )
+health = 1
+
+[node name="Snail2" parent="Level" instance=ExtResource( 2 )]
+position = Vector2( 3583, 1169 )
 health = 1
 
 [node name="Player" parent="." instance=ExtResource( 1 )]

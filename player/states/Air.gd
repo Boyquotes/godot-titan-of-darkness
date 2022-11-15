@@ -28,6 +28,12 @@ func handle_input(event: InputEvent) -> void:
 			
 		
 func physics_update(delta: float) -> void:
+	if player.velocity.y > 0.0:
+		player.anim_state.travel("fall")
+	else:
+		player.anim_state.travel("jump")
+	
+	
 	if player.taking_damage:
 		state_machine.transition_to("Knockback")
 	

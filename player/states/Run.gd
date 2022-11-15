@@ -6,11 +6,13 @@ func enter(msg := {}) -> void:
 	
 	if msg.has("jump_buffer"):
 		player.velocity.y = player.max_jump_velocity
+	
+	player.anim_state.travel("run")
 
 
 func handle_input(event: InputEvent) -> void:
 	if event.is_action_pressed("attack"):
-		player.anim_state.travel("attack")
+		state_machine.transition_to("Attack")
 
 
 func physics_update(delta: float) -> void:
